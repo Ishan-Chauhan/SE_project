@@ -1,5 +1,6 @@
 from django.db import models
-from django.contrib.auth.models import User
+# from django.contrib.auth.models import User
+# from core.models import CustomUser
 
 # Create your models here.
 class Category(models.Model):
@@ -18,8 +19,6 @@ class Item(models.Model):
     description = models.TextField(blank=True, null=True)
     price = models.FloatField()
     img = models.ImageField(upload_to='item_images', blank=True, null=True)
-    created_by = models.ForeignKey(User, related_name='items', on_delete=models.CASCADE)
-    created_at = models.DateField(auto_now_add=True)
 
     def __str__(self) -> str:
         return self.name

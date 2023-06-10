@@ -5,6 +5,26 @@
 {% endblock %}
 
 {%block content%}
+    {% if count > 0 %}
+    <div class="mt-6 px-6 py-12 bg-gray-100 rounded-xl">
+        <h2 class="mb-12 text-2xl text-center">Recommended for You</h2>
+        <div class="grid grid-cols-3 gap-3">
+            {%for item in recommended%}
+            <div class="border-2">
+                <a href="{%url 'item:detail' item.id%}">
+                    <div class="flex justify-center">
+                        <img src="{{item.img.url}}" alt="img1" class="rounded-t-xl" style="height: 250px; width: 70%;">
+                    </div>
+                    <div class="p-6 bg-white rounded-b-xl">
+                        <h2 class="text-2xl">{{item.name}}</h2>
+                        <p class="text-gray-500">Price: ₹{{item.price}}</p>
+                    </div>
+                </a>
+            </div>
+            {%endfor%}
+        </div>
+    </div>
+    {%endif%}
     <div class="mt-6 px-6 py-12 bg-gray-100 rounded-xl">
         <h2 class="mb-12 text-2xl text-center">All Courses</h2>
         <div class="grid grid-cols-3 gap-3">
@@ -16,7 +36,7 @@
                     </div>
                     <div class="p-6 bg-white rounded-b-xl">
                         <h2 class="text-2xl">{{item.name}}</h2>
-                        <p class="text-gray-500">Price: ${{item.price}}</p>
+                        <p class="text-gray-500">Price: ₹{{item.price}}</p>
                     </div>
                 </a>
             </div>

@@ -11,5 +11,6 @@ urlpatterns = [
     path('contact/', views.contact, name='contact'),
     path('login/', views.login_view, name='login'),
     path('logout/', views.logout_view, name='logout'),
+    path('my_learning', views.learning, name='my_learning')
     # path('face_authentication/', views.face_authentication, name='face_authentication'),
 ]

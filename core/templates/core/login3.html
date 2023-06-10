@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Login Form</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            // Check if the browser supports media devices and getUserMedia
+            if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+                // Get the video element
+                var video = document.getElementById('video');
+
+                // Capture image when the "Capture Image" button is clicked
+                $('#capture-btn').on('click', function () {
+                    // Get the canvas element
+                    var canvas = document.getElementById('canvas');
+                    var context = canvas.getContext('2d');
+
+                    // Set the canvas dimensions to match the video dimensions
+                    canvas.width = video.videoWidth;
+                    canvas.height = video.videoHeight;
+
+                    // Draw the current frame from the video onto the canvas
+                    context.drawImage(video, 0, 0, canvas.width, canvas.height);
+
+                    // Get the base64 representation of the image data
+                    var imageData = canvas.toDataURL('image/png');
+
+                    // Set the image data in the hidden input field
+                    $('#img_data').val(imageData);
+
+                    // Display the captured image
+                    $('#captured_image').attr('src', imageData);
+                });
+
+                // Get the user media stream and display it in the video element
+                navigator.mediaDevices.getUserMedia({ video: true })
+                    .then(function (stream) {
+                        video.srcObject = stream;
+                        video.play();
+                    })
+                    .catch(function (error) {
+                        console.log('Error accessing camera:', error);
+                    });
+            } else {
+                console.log('getUserMedia is not supported in this browser.');
+            }
+        });
+    </script>
+</head>
+<body>
+    <h2>Login Form</h2>
+    <form action="/login" method="POST">
+        {% csrf_token %}
+        <!-- Username field -->
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username" required><br><br>
+
+        <!-- Password field -->
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" required><br><br>
+
+        <!-- Hidden input field for image data -->
+        <input type="hidden" id="img_data" name="img_data">
+
+        <!-- Video element to display camera stream -->
+        <video id="video" width="400" height="300" autoplay></video><br><br>
+
+        <!-- Capture image button -->
+        <button type="button" id="capture-btn">Capture Image</button><br><br>
+
+        <!-- Display the captured image -->
+        <img id="captured_image" src="" width="200" height="150" alt="Captured Image"><br><br>
+
+        <!-- Submit button -->
+        <input type="submit" value="Login">
+    </form>
+</body>
+</html>

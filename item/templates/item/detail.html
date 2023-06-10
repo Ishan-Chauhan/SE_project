@@ -13,8 +13,7 @@
 
     <div class="col-span-2 p-6 bg-gray-100 rounded-xl">
         <h1 class="mb-6 text-3xl">{{item.name}}</h1>
-        <p class="text-gray-500"><strong>Price: </strong>${{item.price}}</p>
-        <p class="text-gray-500"><strong>Seller: </strong>{{item.created_by}}</p>
+        <p class="text-gray-500"><strong>Price: </strong>₹{{item.price}}</p>
 
         {%if item.description%}
         <p class="text-gray-700">
@@ -23,7 +22,14 @@
         </p>
         {%endif%}
 
-        <a href="#" class="inline-block mt-6 px-6 py-3 text-lg font-semibold bg-teal-500 text-white hover:bg-teal-700 rounded-xl">Contact Seller</a>
+        <form action="." method="post">
+            {%csrf_token%}
+            {%if bought%}
+            <a href="#" class="inline-block mt-6 px-6 py-3 text-lg font-semibold bg-teal-500 text-white hover:bg-teal-700 rounded-xl">Go to Course</a>
+            {%else%}
+            <button type="submit" class="inline-block mt-6 px-6 py-3 text-lg font-semibold bg-teal-500 text-white hover:bg-teal-700 rounded-xl">BUY</button>
+            {%endif%}
+        </form>
     </div>
 </div>
 
@@ -38,7 +44,7 @@
                 </div>
                 <div class="p-6 bg-white rounded-b-xl">
                     <h2 class="text-2xl">{{item.name}}</h2>
-                    <p class="text-gray-500">Price: ${{item.price}}</p>
+                    <p class="text-gray-500">Price: ₹{{item.price}}</p>
                 </div>
             </a>
         </div>
